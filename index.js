@@ -10,14 +10,17 @@
         },
         cancel: clearTimeout
     }
-
-    // [fucking-weapp](https://github.com/onface/fucking-weapp#requestanimationframe)
-    if (typeof wx !== 'undefined' && wx.request !== 'undefined') {
+    // old browsers module.exports
+    if (typeof requestAnimationFrame === 'undefined') {
         request = polyfill.request
         cencel  = polyfill.cancel
     }
-    // old browsers module.exports
-    if (typeof requestAnimationFrame === 'undefined') {
+    else {
+        request = requestAnimationFrame
+        cancel = cancelAnimationFrame
+    }
+    // [fucking-weapp](https://github.com/onface/fucking-weapp#requestanimationframe)
+    if (typeof wx !== 'undefined' && wx.request !== 'undefined') {
         request = polyfill.request
         cencel  = polyfill.cancel
     }
