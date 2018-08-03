@@ -1,6 +1,6 @@
 ;(function() {
-    var request
-    var cencel
+    var request = requestAnimationFrame
+    var cencel = cancelAnimationFrame
     var lastTime = 0;
     var polyfill = {
         request: function(callback) {
