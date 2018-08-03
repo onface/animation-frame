@@ -1,6 +1,6 @@
 ;(function() {
     var request
-    var cencel
+    var cancel
     var lastTime = 0;
     var polyfill = {
         request: function(callback) {
@@ -13,7 +13,7 @@
     // old browsers module.exports
     if (typeof requestAnimationFrame === 'undefined') {
         request = polyfill.request
-        cencel  = polyfill.cancel
+        cancel  = polyfill.cancel
     }
     else {
         request = requestAnimationFrame
@@ -22,7 +22,7 @@
     // [fucking-weapp](https://github.com/onface/fucking-weapp#requestanimationframe)
     if (typeof wx !== 'undefined' && wx.request !== 'undefined') {
         request = polyfill.request
-        cencel  = polyfill.cancel
+        cancel  = polyfill.cancel
     }
     if (typeof window !== 'undefined' && !window.requestAnimationFrame) {
         window.requestAnimationFrame = polyfill.request
@@ -31,7 +31,7 @@
     if (typeof module !== 'undefined') {
         module.exports = {
             request: request,
-            cencel: cencel
+            cancel: cancel
         }
     }
 })()
