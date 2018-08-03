@@ -1,6 +1,6 @@
 ;(function() {
-    var request = requestAnimationFrame
-    var cencel = cancelAnimationFrame
+    var request
+    var cencel
     var lastTime = 0;
     var polyfill = {
         request: function(callback) {
@@ -10,19 +10,16 @@
         },
         cancel: clearTimeout
     }
+
     // [fucking-weapp](https://github.com/onface/fucking-weapp#requestanimationframe)
     if (typeof wx !== 'undefined' && wx.request !== 'undefined') {
-        request = requestAnimationFrame = polyfill.request
-        cencel = cancelAnimationFrame = polyfill.cancel
+        request = polyfill.request
+        cencel  = polyfill.cancel
     }
-    // Source: https://gist.github.com/paulirish/1579671
-    var vendors = ['ms', 'moz', 'webkit', 'o'];
-    if (typeof window !== 'undefined') {
-        for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-            window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame']
-            window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
-                                       || window[vendors[x]+'CancelRequestAnimationFrame']
-        }
+    // old browsers module.exports
+    if (typeof requestAnimationFrame === 'undefined') {
+        request = polyfill.request
+        cencel  = polyfill.cancel
     }
     if (typeof window !== 'undefined' && !window.requestAnimationFrame) {
         window.requestAnimationFrame = polyfill.request
